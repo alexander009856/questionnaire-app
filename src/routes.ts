@@ -1,4 +1,6 @@
+import { QuestionnaireController } from "./controller/QuestionnaireController"
 import { UserController } from "./controller/UserController"
+import { Questionnaire } from "./entity/Questionnaire"
 
 export const Routes = [{
     method: "get",
@@ -19,5 +21,10 @@ export const Routes = [{
     method: "delete",
     route: "/users/:id",
     controller: UserController,
-    action: "remove"
+    action: "remove",
+}, {
+    method: "get",
+    route: "/questions",
+    controller: QuestionnaireController,
+    action: "all"
 }]

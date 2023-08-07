@@ -4,6 +4,7 @@ import { Request, Response } from "express"
 import { AppDataSource } from "./data-source"
 import { Routes } from "./routes"
 import { User } from "./entity/User"
+import { Questionnaire } from "./entity/Questionnaire"
 
 AppDataSource.initialize().then(async () => {
 
@@ -47,6 +48,14 @@ AppDataSource.initialize().then(async () => {
         })
     )
 
-    console.log("Express server has started on port 8080. Open http://localhost:8080/users to see results")
+    await AppDataSource.manager.save(
+        AppDataSource.manager.create(Questionnaire, {
+            title: "What is the capital of Sofia?",
+            description: "easy",
+            answers: ['Sofia','Varna','Burgas']
+        })
+    )
+
+    console.log("Express server has started on port 8080")
 
 }).catch(error => console.log(error))
