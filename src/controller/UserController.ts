@@ -24,22 +24,31 @@ export class UserController {
         return user;
     }
 
-    async save(request: Request, response: Response, next: NextFunction) {
+    async login(request: Request, response: Response, next: NextFunction) {
         const { username, password } = request.body;
+        const existingUser = await this.userRepository.findOne({ where: { username } });
 
-        const accessToken = sign({ username }, "hahaha", { expiresIn: "1h" });
+        if (!existingUser || existingUser.password !== password) {
+            return 'invalid username/password'
+        }
+        else {
+            const accessToken = sign({ username }, 'secrethaha');
+            existingUser.accessToken = accessToken;
 
+            await this.userRepository.save(existingUser);
+            return accessToken
+        }
+    }
+
+    async register(request: Request, response: Response, next: NextFunction) {
+        const { username, password } = request.body;
         const user = Object.assign(new User(), {
             username,
             password,
-            accessToken
+            accessToken: ''
         });
-
-        // Save the user to the database
         await this.userRepository.save(user);
-
-        // Return the access token in the response
-        return response.json({ accessToken });
+        return user
     }
 
     async update(request: Request, response: Response, next: NextFunction) {
