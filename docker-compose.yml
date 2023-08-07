@@ -1,0 +1,17 @@
+version: "3"
+services:
+  image: postgres:alpine
+  container_name: PostgreSQL 15
+  environment:
+    POSTGRES_USER: postgres
+    POSTGRES_PASSWORD: 9856
+    POSTGRES_DB: typeorm_db
+  networks:
+    - overlay
+  ports:
+    - "5432"
+  volumes:
+    postgres-db:
+
+    networks:
+      overlay:cls
