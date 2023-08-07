@@ -28,26 +28,16 @@ AppDataSource.initialize().then(async () => {
     // setup express app here
     // ...
 
-    // start express server
     app.listen(8080)
 
-    // insert new users for test
     await AppDataSource.manager.save(
         AppDataSource.manager.create(User, {
-            firstName: "Timber",
-            lastName: "Saw",
-            age: 27
+            username: "alexander00",
+            password: "hahaha"
         })
     )
 
-    await AppDataSource.manager.save(
-        AppDataSource.manager.create(User, {
-            firstName: "Phantom",
-            lastName: "Assassin",
-            age: 24
-        })
-    )
-
+ 
     await AppDataSource.manager.save(
         AppDataSource.manager.create(Questionnaire, {
             title: "What is the capital of Sofia?",

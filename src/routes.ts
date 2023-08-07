@@ -1,6 +1,5 @@
 import { QuestionnaireController } from "./controller/QuestionnaireController"
 import { UserController } from "./controller/UserController"
-import { Questionnaire } from "./entity/Questionnaire"
 
 export const Routes = [{
     method: "get",
