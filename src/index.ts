@@ -30,12 +30,12 @@ AppDataSource.initialize().then(async () => {
 
     app.listen(8080)
 
-    await AppDataSource.manager.save(
-        AppDataSource.manager.create(User, {
-            username: "alexander00",
-            password: "hahaha"
-        })
-    )
+    // await AppDataSource.manager.save(
+    //     AppDataSource.manager.create(User, {
+    //         username: "alexander00",
+    //         password: "hahaha"
+    //     })
+    // )
 
  
     await AppDataSource.manager.save(

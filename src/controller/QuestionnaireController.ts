@@ -1,8 +1,9 @@
 import { AppDataSource } from "../data-source";
 import { NextFunction, Request, Response } from "express";
 import { Questionnaire } from "../entity/Questionnaire";
-
+import { User } from '../entity/User'
 export class QuestionnaireController {
+    private userRepository = AppDataSource.getRepository(User);
 
     private questionnaireRepository = AppDataSource.getRepository(Questionnaire);
 
@@ -25,6 +26,13 @@ export class QuestionnaireController {
 
     async save(request: Request, response: Response, next: NextFunction) {
         const { title, description, answers } = request.body;
+
+        const authToken = request.header('Authorization');
+        const token = await this.userRepository.findOne({ where: { accessToken: authToken } });
+
+        if (!token) {
+            return { error: 'Authorization token missing' };
+        }
 
         const questionnaire = Object.assign(new Questionnaire(), {
             title,

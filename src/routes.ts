@@ -36,4 +36,11 @@ export const Routes = [{
     route: "/questions",
     controller: QuestionnaireController,
     action: "all"
-}]
+},
+{
+    method: "post",
+    route: "/questions",
+    controller: QuestionnaireController,
+    action: "save"
+}
+]
